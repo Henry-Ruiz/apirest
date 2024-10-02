@@ -1,16 +1,29 @@
 <?php
 //capturamos la ruta
-$array = explode ("/", $_SERVER["REQUEST_URI"]);
+$array=explode("/",$_SERVER["REQUEST_URI"]);
 
-if (Count(array_filter($array))==1){
+/*-------------------------------------- 
+cuando no se hace ninguna peticion a la API
+---------------------------------------*/ 
+if(count(array_filter($array))==1){
+
     $json=array(
-        "detalle"=>"Sin Solicitudes",
+        "detalle"=>"sin solicitudes",
     );
+echo json_encode($json, true); 
 }else{
-    if (Count(array_filter($array))==2){
-        $json=array(
-            "detalle"=>"con Solicitudes",
-        );
+ /*-------------------------------------- 
+ cuando si se hace una peticion a la API
+ ---------------------------------------*/  
+ if(count(array_filter($array))==2){
+    /*cursos*/
+if(array_filter($array)[2]=="cursos"){
+    /*ver listas de cursos* */
+    if(isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"]=="GET"){
+        $cursos=new ControladorCursos();
+        $cursos->index();
+    }
+}
 }
 }
 ?>
